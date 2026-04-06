@@ -14,13 +14,12 @@ async function main() {
     .showHelpAfterError()
     .argument('[period]', 'Time period: today, week, or month', config.period)
     .option('-n, --top <number>', 'Number of products to scrape', String(config.topN))
-    .option('-t, --token <token>', 'Product Hunt API token (overrides PH_API_TOKEN env var)')
     .parse();
 
   const [period] = program.args as string[];
-  const opts = program.opts<{ top: string; token?: string }>();
+  const opts = program.opts<{ top: string }>();
   const topN = parseInt(opts.top, 10);
-  const apiToken = opts.token || config.apiToken || process.env.PH_API_TOKEN || '';
+  const apiToken = config.apiToken || process.env.PH_API_TOKEN || '';
 
   const validPeriods = ['today', 'week', 'month'] as const;
   if (!validPeriods.includes(period as any)) {
