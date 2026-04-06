@@ -38,26 +38,26 @@ pnpm start week --token TOKEN # Override token via flag
 
 **You must report to the user using the exact format in the example below.**
 
-
 ```
-──────────────────────────────────────────────────────────────────────
-  Product Hunt Leaderboard — This Week  (3 products)
-──────────────────────────────────────────────────────────────────────
+## 🏆 Product Hunt — This Week (3 products)
 
-  # 1  Influcio (462 votes)
-        AI marketing Agent for result-driven influencer campaign
-        https://www.producthunt.com/products/influcio-2?utm_campaign=producthunt-api&utm_medium=api-v2&utm_source=Application%3A+get+ranking+%28ID%3A+280772%29
+**1.** [Influcio](https://www.producthunt.com/products/influcio-2) — *462 votes*
+   AI marketing Agent for result-driven influencer campaign
 
-  # 2  Panorama (288 votes)
-        AI that finds your team's workflows and hidden structures
-        https://www.producthunt.com/products/panorama?utm_campaign=producthunt-api&utm_medium=api-v2&utm_source=Application%3A+get+ranking+%28ID%3A+280772%29
+**2.** [Panorama](https://www.producthunt.com/products/panorama) — *288 votes*
+   AI that finds your team's workflows and hidden structures
 
-  # 3  Tiny Aya (192 votes)
-        Local, open-weight AI designed for real-world languages
-        https://www.producthunt.com/products/cohere-2?utm_campaign=producthunt-api&utm_medium=api-v2&utm_source=Application%3A+get+ranking+%28ID%3A+280772%29
-
-──────────────────────────────────────────────────────────────────────
+**3.** [Tiny Aya](https://www.producthunt.com/products/cohere-2) — *192 votes*
+   Local, open-weight AI designed for real-world languages
 ```
+
+- Use **Markdown**: bold rank, italic votes, clickable product names
+- Each product: single-line title with link + votes, followed by indented tagline
+- Blank line between products
+- Header with emoji, period name, and product count in parentheses
+- The example format **must be reproduced exactly** in all user reports
+
+**JSON File**: Saved to `output/{today|week|month}.json` (relative to project root). Contains raw data with full fields including thumbnails.
 
 ## Project Structure
 
