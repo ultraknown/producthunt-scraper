@@ -44,8 +44,8 @@ async function main() {
     const products = await scrapeProducts(period as typeof validPeriods[number], topN, apiToken);
 
     if (products.length === 0) {
-      console.warn('No products found. The API may not have data for this period.');
-      process.exit(1);
+      console.log('No products found for this period (API may have no data).');
+      process.exit(0);
     }
 
     printResults(products, period as typeof validPeriods[number]);

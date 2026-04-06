@@ -107,7 +107,7 @@ export async function scrapeProducts(period: TimePeriod, topN: number, token: st
   const edgeList = postsData?.edges || [];
 
   if (edgeList.length === 0) {
-    throw new Error(`No products found for ${period}. Try a different time range.`);
+    return [];
   }
 
   return edgeList.slice(0, topN).map((edge: { node: Record<string, unknown> }, i: number) => {

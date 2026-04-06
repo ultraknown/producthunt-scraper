@@ -1,15 +1,14 @@
 {
   "name": "producthunt-scraper",
   "version": "1.0.0",
-  "description": "Product Hunt leaderboard scraper using Playwright",
+  "description": "Product Hunt leaderboard scraper via GraphQL API",
   "main": "src/index.ts",
   "scripts": {
     "start": "npx tsx src/index.ts"
   },
   "dependencies": {
     "commander": "^14.0.3",
-    "dotenv": "^17.4.1",
-    "playwright": "^1.49.0"
+    "dotenv": "^17.4.1"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
