@@ -6,6 +6,6 @@ export const config: ScraperConfig = {
   // Number of top products to scrape
   topN: 10,
   // Product Hunt Developer Token
-  // Set the PH_API_TOKEN environment variable (see .env.example)
+  // Reads from .env file or environment variable
   apiToken: process.env.PH_API_TOKEN || '',
 };

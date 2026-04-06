@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { config } from '../config';
 import { scrapeProducts } from './scraper';
 import { printResults, saveResults } from './output';
