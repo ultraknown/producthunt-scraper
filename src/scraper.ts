@@ -3,30 +3,44 @@ import type { TimePeriod, Product } from './types';
 
 const PRODUCT_HUNT_API_URL = 'https://api.producthunt.com/v2/api/graphql';
 
-function graphqlQuery(query: string, token: string): Promise<Record<string, unknown>> {
+function graphqlQuery(query: string, token: string, retries = 3): Promise<Record<string, unknown>> {
   return new Promise((resolve, reject) => {
     const payload = JSON.stringify({ query });
-    const req = https.request(PRODUCT_HUNT_API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Content-Length': Buffer.byteLength(payload),
-        'Authorization': `Bearer ${token}`,
-      },
-    }, (res) => {
-      let data = '';
-      res.on('data', (chunk: string) => data += chunk);
-      res.on('end', () => {
-        try {
-          resolve(JSON.parse(data));
-        } catch (e) {
-          reject(new Error(`Failed to parse response: ${data.substring(0, 200)}`));
+    let attempt = 0;
+
+    function doRequest() {
+      attempt++;
+      const req = https.request(PRODUCT_HUNT_API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(payload),
+          'Authorization': `Bearer ${token}`,
+        },
+      }, (res) => {
+        let data = '';
+        res.on('data', (chunk: string) => data += chunk);
+        res.on('end', () => {
+          try {
+            resolve(JSON.parse(data));
+          } catch (e) {
+            reject(new Error(`Failed to parse response: ${data.substring(0, 200)}`));
+          }
+        });
+      });
+      req.on('error', (err: NodeJS.ErrnoException) => {
+        if ((err.code === 'ECONNRESET' || err.code === 'ECONNREFUSED') && attempt < retries) {
+          console.log(`  Connection error, retrying (${attempt}/${retries})...`);
+          setTimeout(doRequest, 1000 * attempt);
+        } else {
+          reject(err);
         }
       });
-    });
-    req.on('error', reject);
-    req.write(payload);
-    req.end();
+      req.write(payload);
+      req.end();
+    }
+
+    doRequest();
   });
 }
 
